@@ -18,26 +18,15 @@ Alexa::init();
 // User launched the skill.
 Alexa::enters(function() {
 	// Say something, wait for an answer, ask again if no reply is given
-    //Alexa::ask('Ciao, come ti chiami?', "Scusa, quale è il tuo nome?");
-	Alexa::say('<speak>Ma sapete cosa ho fatto?
-Sapete cosa?
-<prosody rate="110%">Sapete cosa ho chiesto, sapete cosa?</prosody>
-<prosody rate="120%">Sapete cosa mi hanno dato, sapete cosa?</prosody>
-<prosody rate="130%">Sapete cosa ho fatto, sapete cosa?</prosody>
-<prosody rate="140%">Sapete cosa ho chiesto, sapete cosa? Sapete cosa mi hanno dato?</prosody>
-<prosody rate="160%" pitch="-15%">Annulla, tralascia, riprova.</prosody>
-<prosody rate="150%">Sapete cosa, sapete cosa ho fatto?</prosody>
-<prosody rate="180%" pitch="-20%">Annulla, tralascia, riprova. Annulla, tralascia, riprova.</prosody>
-<prosody rate="160%">Sapete cosa ho fatto?</prosody>
-<prosody rate="165%" pitch="-25%">Annulla, tralascia, riprova.</prosody>
-<prosody rate="170%">Sapete cosa ho chiesto?</prosody>
-<prosody rate="120%" pitch="x-low"><say-as interpret-as="interjection">Annulla, tralascia</say-as></prosody>
-<voice name="Giorgio">
-<prosody rate="120%" pitch="-24%"><say-as interpret-as="interjection">, riprova.</say-as></prosody>
-<prosody pitch="x-low">Mi hanno dato questo corpo di fibra di carbonio e leghe di metalli,
-fibra ottica e <say-as interpret-as="interjection">sofisticati laminati plastici</say-as>, <break time="500ms"/> </prosody>
-<prosody pitch="x-low" volume="x-loud">polimeriii,</prosody>
-<prosody pitch="x-low"><emphasis level="strong">polimerii</emphasis>, meritatissimi polimeri!.</prosody></voice></speak>',true);
+    	Alexa::ask('Ciao, come ti chiami?', "Scusa, quale è il tuo nome?");
+});
+
+User::triggered('RipetiIntent',function() {
+	$phrase = User::stated('phrase');
+	if($phrase)
+		Alexa::say("hai detto $phrase!");
+	else
+		Alexa::say("test");
 });
 
 // User triggered the 'NameIntent' intent from the Skill Builder
@@ -68,6 +57,8 @@ User::triggered('NameIntent', function() {
 
 // User triggered the 'CoffeeIntent' intent from the Skill Builder
 User::triggered('CoffeeIntent', function() {
+	Alexa::say("Sono qui.");
+
 	// Get the 'answer' slot.
 	$answer = User::stated('answer');
 
@@ -101,4 +92,5 @@ Alexa::exits(function() {
 	 * to have this here because she will give an error message if we
 	 * don't acknowledge the skill's exit.
 	 */
+	Alexa::say("Addio!");
 });
